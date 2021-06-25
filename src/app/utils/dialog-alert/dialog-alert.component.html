@@ -1,0 +1,43 @@
+<div fxLayout="row" fxLayoutAlign="end">
+  <button mat-icon-button (click)="closeDialogAlert({})" *ngIf="dataView?.showCloseButton">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="p-0 m-0 font-size-32" fxLayout="row" fxLayoutAlign="center">
+  <mat-icon [inline]="true" [ngStyle]="{'color': colorIcon, 'font-size': '45px'}">
+    {{viewIcon}}
+  </mat-icon>
+</div>
+<mat-dialog-content class="pb-0 m-0">
+  <div class="h3" fxLayout="row" fxLayoutAlign="center">
+    {{dataView.title}}
+  </div>
+  <div class="p-8" fxLayout="row" fxLayoutAlign="center" *ngIf="dataView?.text">
+    {{dataView.text}}
+  </div>
+  <div class="p-8" fxLayout="row" fxLayoutAlign="center" *ngIf="dataView?.html">
+    <div [innerHTML]="dataView.html"></div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="m-0 pb-16 pt-20" align="center">
+  <button
+    *ngIf="dataView?.showCancelButton"
+    mat-raised-button
+    color="warn"
+    (click)="closeDialogAlert({cancel: true})">
+    {{dataView?.textCancelButton ? dataView?.textCancelButton : 'Cancelar'}}
+  </button>
+  <button
+    *ngIf="!dataView?.showConfirButton"
+    mat-raised-button
+    color="accent"
+    (click)="closeDialogAlert({value: true})">
+    {{dataView?.textConfirButton ? dataView?.textConfirButton : 'Ok'}}
+  </button>
+  <button
+    *ngIf="dataView?.showOtherButton"
+    mat-raised-button
+    (click)="closeDialogAlert({other: true})">
+    {{dataView?.textOtherButton ? dataView?.textOtherButton : 'Otro'}}
+  </button>
+</mat-dialog-actions>

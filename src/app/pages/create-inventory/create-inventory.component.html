@@ -1,0 +1,139 @@
+<div fxLayout="column" fxLayout.gt-xs="row" class="p">
+
+  <form [formGroup]="formRole">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Crear rol:</mat-label>
+      <input matInput formControlName="name">
+      <mat-error>El nombre del rol es requerido</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent"
+            matTooltip="Crear rol"
+            class="save-button m-left"
+            (click)="onCreate()" [disabled]="formRole.invalid">Crear rol
+    </button>
+  </form>
+</div>
+
+<div fxLayout="column" fxLayout.gt-xs="row" class="p" *ngIf="roles?.length > 0">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Elige un role</mat-label>
+    <mat-select>
+      <mat-option disabled>Selecciona un rol</mat-option>
+      <mat-option *ngFor="let item of roles" [value]="item.id">
+        {{item?.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<mat-tab-group *ngIf="roles?.length > 0">
+  <mat-tab label="Crear usuario">
+
+    <div fxLayout="column">
+      <div class="px-16" fxLayout="row" fxFlex>
+        <form [formGroup]="formUser" fxLayout="column" fxLayout.gt-xs="row" class="p">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre:</mat-label>
+            <input matInput name="name" formControlName="name" required>
+            <mat-error>El nombre es requerido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="m-left">
+            <mat-label>Elige tu edad</mat-label>
+            <mat-select formControlName="age">
+              <mat-option>Selecciona tu edad</mat-option>
+              <mat-option *ngFor="let item of ages" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+            <mat-error>La edad es requerida</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="m-left">
+            <mat-label>Elige un role</mat-label>
+            <mat-select formControlName="idRole">
+              <mat-option disabled>Selecciona un rol</mat-option>
+              <mat-option *ngFor="let item of roles" [value]="item.id">
+                {{item?.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error>El rol es requerido</mat-error>
+          </mat-form-field>
+
+        </form>
+      </div>
+
+      <div fxLayout="column" class="m-left m-top">
+        <button mat-raised-button color="accent" fxFlexAlign="start" (click)="onSave()"
+                [disabled]="formUser.invalid">
+          Registrar
+        </button>
+      </div>
+
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Crear producto">
+
+    <div fxLayout="column" *ngIf="roles.length > 0">
+      <div class="px-16" fxLayout="row" fxFlex>
+        <form [formGroup]="formProduct" fxLayout="column" fxLayout.gt-xs="row" class="p">
+
+          <mat-form-field appearance="outline" class="m-left">
+            <mat-label>Nombre:</mat-label>
+            <input matInput name="name" formControlName="name" required>
+            <mat-error>El nombre es requerido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="m-left">
+            <mat-label>Precio:</mat-label>
+            <input matInput type="number" name="price" formControlName="price" required>
+            <mat-error>El precio es requerido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="m-left">
+            <mat-label>Elige una cantidad</mat-label>
+            <mat-select formControlName="quantity">
+              <mat-option>Selecciona una cantidad</mat-option>
+              <mat-option *ngFor="let item of ages" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+            <mat-error>La cantidad es requerida</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="m-left">
+            <mat-label>Elige un usuario</mat-label>
+            <mat-select formControlName="user">
+              <mat-option disabled>Selecciona un usuario</mat-option>
+              <mat-option *ngFor="let item of users" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error>El usuario requerido</mat-error>
+          </mat-form-field>
+
+        </form>
+      </div>
+
+      <div fxLayout="column" class="m-left-full m-top">
+        <button mat-raised-button color="accent" fxFlexAlign="start" (click)="onSaveProduct()"
+                [disabled]="formProduct.invalid">
+          Crear producto
+        </button>
+      </div>
+
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Inventario">
+
+    inventario aquí
+
+  </mat-tab>
+</mat-tab-group>
+
